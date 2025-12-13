@@ -1,4 +1,7 @@
+from pathlib import Path
 
+DATA_DIR_PATH = Path(__file__).parent.parent.parent.resolve() / "data"
+STOPWORDS_FILE_PATH = DATA_DIR_PATH / "stopwords.txt"
 def llm_prompt(context_texts: list[str], question: str):
     context = "\n".join(context_texts)
     prompt = f"""You are a helpful AI assistant.
