@@ -14,14 +14,14 @@ class ResponseEvaluation:
         self.answer = answer["generation"]["answer"]
         self.model = SentenceTransformer(model_name_or_path=model_name)
 
-    def compute_similarity(self):
+    def _compute_similarity(self):
         question_embedding = self.model.encode([self.user_query])
         answer_embedding = self.model.encode([self.answer])
 
         sim_score = _cosine_similarity(question_embedding[0], answer_embedding[0])
         return sim_score
     
-    def lexical_overlap(self):
+    def _lexical_overlap(self):
         query_tokens = process_text_to_tokens(self.user_query)
         answer_tokens = process_text_to_tokens(self.answer)
 
@@ -31,7 +31,12 @@ class ResponseEvaluation:
         a = set(answer_tokens)
         overlap_count = len(q & a)
         return overlap_count / len(q)
-
+    
+    def calculate_relevance_score(self):
+        # more weightage to semantic scores
+        rel_score = (0.7 * self._compute_similarity()) + (0.3 * self._lexical_overlap())
+        return rel_score
+    
 def _cosine_similarity(vec1, vec2):
     """Computes the cosine similrity score between 2 vectors."""
     dot_product = np.dot(vec1, vec2)
