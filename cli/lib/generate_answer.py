@@ -1,7 +1,7 @@
 import time
 import ollama
-from load_json import InputExtraction
-from constants import llm_prompt
+from lib.load_json import InputExtraction
+from lib.constants import llm_prompt
 
 # based on gpt5.2 pricing
 INPUT_COST_PER_TOKEN = 1.750 / 1000000
@@ -12,7 +12,7 @@ class AnswerGenerationAndEvaluation:
         ie = InputExtraction(conversation_number=conversation_number)
         self.user_query, self.context_texts = ie.extract_info(k=k)
 
-    def generate_answer(self):
+    def generate_answer(self) -> dict:
         prompt = llm_prompt(context_texts=self.context_texts, question=self.user_query)
         start_time = time.perf_counter_ns()
         response = ollama.generate(model="mistral:latest", prompt=prompt)
@@ -36,3 +36,11 @@ class AnswerGenerationAndEvaluation:
                 "estimated_cost": (input_tokens * INPUT_COST_PER_TOKEN) + (output_tokens * OUTPUT_COST_PER_TOKEN)
             }
         }
+    
+def generate_answer_command(n: int, k: int=5):
+    generator = AnswerGenerationAndEvaluation(conversation_number=n, k=k)
+    answer = generator.generate_answer()
+    print(f"Generated an answer for the last user message in conversation {n} (retrieved {k} context docs:)")
+    print(f"- Answer: {answer['generation']['answer']}")
+    print(f"- Latency: {answer['generation']['latency_ms']:.5f} ms")
+
