@@ -40,7 +40,7 @@ class AnswerGenerationAndEvaluation:
 def generate_answer_command(n: int, k: int=5):
     generator = AnswerGenerationAndEvaluation(conversation_number=n, k=k)
     answer = generator.generate_answer()
-    print(f"Generated an answer for the last user message in conversation {n} (retrieved {k} context docs:)")
+    print(f"Generated an answer for the last user message in conversation {n} (retrieved {k} context docs):")
     print(f"- Answer: {answer['generation']['answer']}")
     print(f"- Latency: {answer['generation']['latency_ms']:.5f} ms")
 
