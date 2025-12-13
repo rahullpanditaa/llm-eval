@@ -1,4 +1,5 @@
 import argparse
+from lib.load_json import extract_info_command
 
 def main():
     parser = argparse.ArgumentParser(description="LLM Evaluation CLI")
@@ -9,3 +10,12 @@ def main():
     extract_json_parser.add_argument("--k", type=int, nargs="?", default=5, help="Number of context texts to retrieve from sample context json loaded")
 
     args=parser.parse_args()
+
+    match args.command:
+        case "extract-info":
+            extract_info_command(n=args.conversation, k=args.k)
+        case _:
+            parser.print_help()
+
+if __name__ == "__main__":
+    main()
