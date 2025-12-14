@@ -5,15 +5,27 @@
     "number_retrieved_docs": 5
   },
   "generation": {
-    "answer": " The cost for a complete IVF/ICSI cycle at Malpani Infertility Clinic is US $ 4000, which is all-inclusive of all medical procedures, including lab tests, scans, egg pickup and embryo transfer. The approximate total costs of all the medicines used for superovulation for one complete cycle is about US $ 1000 more.",
-    "latency_ms": 22379.52,
+    "answer": " A complete cycle of IVF/ICSI at Malpani Infertility Clinic costs only US $ 4000, and this includes all medical procedures, including lab tests, scans, egg pickup and embryo transfer. There is no extra charge for ICSI. The approximate total costs of all the medicines used for superovulation for one complete cycle is about US $ 1000 more.",
+    "latency_ms": 235075.77,
     "tokens": {
       "input": 2604,
-      "output": 87,
-      "total": 2691
+      "output": 91,
+      "total": 2695
     },
-    "estimated_cost": 0.005775000000000001
+    "estimated_cost": 0.005831
   },
   "evaluation": {
     "relevance": {
-      "score": 
+      "score": 0.6980065107345581,
+      "notes": "The response is partially relevant to the user's question (moderate semantic similarity, limited keyword overlap)"
+    },
+    "completenss": {
+      "score": 0.2,
+      "notes": "The answer does not cover most of the information present in the retrieved context."
+    },
+    "hallucination": {
+      "hallucination_score": 0.6666666666666666,
+      "note": "Most statements in response lack support from retrieved context"
+    }
+  }
+}

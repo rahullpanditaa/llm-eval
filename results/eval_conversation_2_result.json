@@ -1,0 +1,31 @@
+{
+  "input": {
+    "conversation_id": 2,
+    "user_query": "In my case donor option is have better chance.?",
+    "number_retrieved_docs": 5
+  },
+  "generation": {
+    "answer": " Based on the provided context, if you are unable to conceive using your own eggs due to reasons such as age-related ovarian failure, premature ovarian failure, surgery for specific pelvic disorders, medical therapies like chemotherapy, or having unusable eggs, using donor eggs in an IVF treatment could potentially have a better chance of success. However, it's important to note that the final decision should be made after discussing your specific situation with a healthcare provider.",
+    "latency_ms": 324406.81,
+    "tokens": {
+      "input": 2510,
+      "output": 102,
+      "total": 2612
+    },
+    "estimated_cost": 0.005820499999999999
+  },
+  "evaluation": {
+    "relevance": {
+      "score": 0.5142335891723633,
+      "notes": "The response is partially relevant to the user's question (moderate semantic similarity, limited keyword overlap)"
+    },
+    "completenss": {
+      "score": 1.0,
+      "notes": "The answer covers most of the information present in the retrieved context."
+    },
+    "hallucination": {
+      "hallucination_score": 0.5,
+      "note": "Most statements in response lack support from retrieved context"
+    }
+  }
+}
