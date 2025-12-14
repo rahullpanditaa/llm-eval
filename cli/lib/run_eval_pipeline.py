@@ -5,7 +5,7 @@ from lib.check_hallucination import CheckHallucination
 from pathlib import Path
 import json
 
-EVALUATION_RESULTS_PATH = Path(__file__).parent.parent.resolve() / "pipeline_results.json"
+RESULTS_DIR_PATH = Path(__file__).parent.parent.parent.resolve() / "results"
 
 def run_evaluation_pipeline(conversation_id: int, k: int=5):
     # input extraction
@@ -45,10 +45,12 @@ def run_evaluation_pipeline(conversation_id: int, k: int=5):
             "hallucination": h_score
         }
     }
-    with open(EVALUATION_RESULTS_PATH, "w") as f:
+    RESULTS_DIR_PATH.mkdir(parents=True, exist_ok=True)
+    eval_results_path = RESULTS_DIR_PATH / f"eval_conversation_{conversation_id}_result.json"
+    with open(eval_results_path, "w") as f:
         json.dump(result, f, indent=2)
     
-    print(f"- Results saved to '{EVALUATION_RESULTS_PATH.name}'")
+    print(f"- Results saved to '{eval_results_path.name}'")
     return result
 
 
