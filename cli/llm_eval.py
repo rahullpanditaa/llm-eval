@@ -1,6 +1,7 @@
 import argparse
 from lib.load_json import extract_info_command
 from lib.generate_answer import generate_answer_command
+from lib.run_eval_pipeline import run_evaluation_pipeline
 
 def main():
     parser = argparse.ArgumentParser(description="LLM Evaluation CLI")
@@ -14,9 +15,15 @@ def main():
     generate_answer_parser.add_argument("--conversation", type=int, choices=[1,2], help="Sample conversation json to load")
     generate_answer_parser.add_argument("--k", type=int, nargs="?", default=5, help="Number of context texts to retrieve from sample context json loaded")
     
+    run_eval_pipeline_parser = subparsers.add_parser("run-eval", help="Run the evaluation pipeline from start to finish")
+    run_eval_pipeline_parser.add_argument("conversation", type=int, choices=[1,2], help="Sample conversation json to load")
+    run_eval_pipeline_parser.add_argument("--k", type=int, nargs="?", default=5, help="Number of context texts to retrieve from sample context json loaded")
+
     args=parser.parse_args()
 
     match args.command:
+        case "run-eval":
+            run_evaluation_pipeline(conversation_id=args.conversation, k=args.k)
         case "extract-info":
             extract_info_command(n=args.conversation, k=args.k)
         case "generate-answer":

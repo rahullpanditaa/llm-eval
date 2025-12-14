@@ -48,6 +48,7 @@ def run_evaluation_pipeline(conversation_id: int, k: int=5):
     with open(EVALUATION_RESULTS_PATH, "w") as f:
         json.dump(result, f, indent=2)
     
+    print(f"- Results saved to '{EVALUATION_RESULTS_PATH.name}'")
     return result
 
 
