@@ -50,12 +50,49 @@ class ResponseEvaluation:
                 # context text covered
                 covered_chunks += 1
         
-        return covered_chunks / len(self.context_texts) 
+        comp_score = covered_chunks / len(self.context_texts)
+        if comp_score >= 0.8:
+            note = "The answer covers most of the information present in the retrieved context."
+        elif comp_score >= 0.4:
+            note = "The answer reflects information from some retrieved context chunks but omits other available aspects."
+        else:
+            note = "The answer does not cover most of the information present in the retrieved context."
+        return {
+            "comp_score": comp_score,
+            "note": note
+        }
+
     
-    def calculate_relevance_score(self):
+    def _calculate_relevance_score(self):
         # more weightage to semantic scores
         rel_score = (0.7 * self._compute_similarity_ques_ans()) + (0.3 * self._lexical_overlap())
-        return rel_score
+        if rel_score >= 0.7:
+            note = "The response aligns well with the user's question (strong semantic similarity and keyword overlap)."
+        elif 0.4 <= rel_score <= 0.7:
+            note = "The response is partially relevant to the user's question (moderate semantic similarity, limited keyword overlap)" 
+        else:
+            note = "The response has low relevance to the user's question."
+        
+        return {
+            "rel_score": rel_score,
+            "note": note
+        }
+    
+    def evaluate_response(self):
+        relevance = self._calculate_relevance_score()
+        completeness = self.calculate_completeness()
+        return {
+            "evaluation": {
+                "relevance": {
+                    "score": relevance["rel_score"],
+                    "notes": relevance["note"]
+                },
+                "completeness": {
+                    "score": completeness["comp_score"],
+                    "notes": completeness["note"]
+                }
+            }
+        }
     
 
 
