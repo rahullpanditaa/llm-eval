@@ -69,7 +69,7 @@ Measures whether the answer contains claims **not supported by retrieved context
 * For each sentence, compute maximum semantic similarity against all context chunks
 * Mark sentences below a support threshold as hallucinated
 
-The hallucination score is the fraction of unsupported sentences.
+The hallucination score is the fraction of unsupported sentences. Hallucination scores may remain high even for relevant and complete answers if the response contains generalized advice or inferred statements not explicitly supported by retrieved context.
 
 ---
 
