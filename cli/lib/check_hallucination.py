@@ -1,21 +1,26 @@
 import nltk
 import numpy as np
 from sentence_transformers import SentenceTransformer
+nltk.download("punkt")
 
 class CheckHallucination:
-    def __init__(self, answer, context_chunks, model_name="all-MiniLM-L6-v2"):
-        nltk.download("punkt")
+    def __init__(self, answer, context_chunks: list[str], model_name="all-MiniLM-L6-v2"):
         self.sentences = nltk.sent_tokenize(text=answer)
-        self.context_chunks = context_chunks
         self.model = SentenceTransformer(model_name_or_path=model_name)
+        self.context_chunks_embeddings = self.model.encode(context_chunks)
 
     def compute_hallucination_score(self):
+        if not self.sentences:
+            return {
+                "score": 0.0,
+                "note": "No content generated to assess hallucination."
+            }
+        
         support_scores = []
         for sent in self.sentences:
             em = self.model.encode([sent])[0]
             sim_scores_for_current_sent = []
-            for ch in self.context_chunks:
-                ch_embed = self.model.encode([ch])[0]
+            for ch_embed in self.context_chunks_embeddings:
                 sim_score = _cosine_similarity(em, ch_embed)
                 sim_scores_for_current_sent.append(sim_score)
             support_scores.append(max(sim_scores_for_current_sent))
@@ -35,7 +40,7 @@ class CheckHallucination:
             note = "All statements in answer supported by retrieved context"
         
         return {
-            "hallucination_core": hallucination_score,
+            "hallucination_score": hallucination_score,
             "note": note
         }
 

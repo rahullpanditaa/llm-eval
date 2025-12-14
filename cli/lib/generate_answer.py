@@ -8,9 +8,9 @@ INPUT_COST_PER_TOKEN = 1.750 / 1000000
 OUTPUT_COST_PER_TOKEN = 14.000 / 1000000
 
 class AnswerGenerationAndEvaluation:
-    def __init__(self, conversation_number: int, k:int = 5):
-        ie = InputExtraction(conversation_number=conversation_number)
-        self.user_query, self.context_texts = ie.extract_info(k=k)
+    def __init__(self, query: str, chunks: list[str]):
+        self.user_query = query
+        self.context_texts = chunks
 
     def generate_answer(self) -> dict:
         prompt = llm_prompt(context_texts=self.context_texts, question=self.user_query)

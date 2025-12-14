@@ -53,13 +53,13 @@ class InputExtraction:
     def extract_info(self, k:int = 5):
         user_query = self._extract_last_user_message()
         context_texts = self._extract_context_texts(k=k)
-        return user_query, context_texts
+        return user_query, context_texts[:k]
 
 
 
 def extract_info_command(n: int, k:int = 5):
     extractor = InputExtraction(conversation_number=n)
-    user_query, context_texts = extractor.extract_info()
+    user_query, context_texts = extractor.extract_info(k=k)
     print(f"You have selected conversation number {n}.")
     print("Last user message in selected conversation (abridged to <= 50 chars):")
     print(f"- '{user_query[:50]}'...\n")

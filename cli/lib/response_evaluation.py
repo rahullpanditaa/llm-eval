@@ -6,12 +6,10 @@ from lib.utils import process_text_to_tokens
 
 
 class ResponseEvaluation:
-    def __init__(self, conversation_number: int, k: int=5, model_name="all-MiniLM-L6-v2"):
-        ie = InputExtraction(conversation_number=conversation_number, k=k)
-        self.user_query, self.context_texts = ie.extract_info(k=k)
-        ga = AnswerGenerationAndEvaluation(conversation_number=conversation_number, k=k)
-        answer = ga.generate_answer()
-        self.answer = answer["generation"]["answer"]
+    def __init__(self, answer: str, query: str, chunks: list[str], model_name="all-MiniLM-L6-v2"):
+        self.user_query = query
+        self.context_texts = chunks
+        self.answer = answer
         self.model = SentenceTransformer(model_name_or_path=model_name)
 
     def _compute_similarity_ques_ans(self):
