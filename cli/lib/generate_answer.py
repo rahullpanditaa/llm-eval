@@ -15,7 +15,7 @@ class AnswerGenerationAndEvaluation:
     def generate_answer(self) -> dict:
         prompt = llm_prompt(context_texts=self.context_texts, question=self.user_query)
         start_time = time.perf_counter_ns()
-        response = ollama.generate(model="mistral:latest", prompt=prompt)
+        response = ollama.generate(model="mistral", prompt=prompt)
         answer = response.response
         end_time = time.perf_counter_ns()
         

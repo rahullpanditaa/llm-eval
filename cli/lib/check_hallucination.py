@@ -1,7 +1,7 @@
 import nltk
 import numpy as np
 from sentence_transformers import SentenceTransformer
-nltk.download("punkt")
+# nltk.download("punkt")
 
 class CheckHallucination:
     def __init__(self, answer, context_chunks: list[str], model_name="all-MiniLM-L6-v2"):

@@ -16,7 +16,7 @@ def main():
     generate_answer_parser.add_argument("--k", type=int, nargs="?", default=5, help="Number of context texts to retrieve from sample context json loaded")
     
     run_eval_pipeline_parser = subparsers.add_parser("run-eval", help="Run the evaluation pipeline from start to finish")
-    run_eval_pipeline_parser.add_argument("conversation", type=int, choices=[1,2], help="Sample conversation json to load")
+    run_eval_pipeline_parser.add_argument("--conversation", type=int, choices=[1,2], help="Sample conversation json to load")
     run_eval_pipeline_parser.add_argument("--k", type=int, nargs="?", default=5, help="Number of context texts to retrieve from sample context json loaded")
 
     args=parser.parse_args()

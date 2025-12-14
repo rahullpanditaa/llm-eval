@@ -1,0 +1,19 @@
+{
+  "input": {
+    "conversation_id": 1,
+    "user_query": "what is the cost of one circle of IVF/ICSI at your facility?",
+    "number_retrieved_docs": 5
+  },
+  "generation": {
+    "answer": " The cost for a complete IVF/ICSI cycle at Malpani Infertility Clinic is US $ 4000, which is all-inclusive of all medical procedures, including lab tests, scans, egg pickup and embryo transfer. The approximate total costs of all the medicines used for superovulation for one complete cycle is about US $ 1000 more.",
+    "latency_ms": 22379.52,
+    "tokens": {
+      "input": 2604,
+      "output": 87,
+      "total": 2691
+    },
+    "estimated_cost": 0.005775000000000001
+  },
+  "evaluation": {
+    "relevance": {
+      "score": 

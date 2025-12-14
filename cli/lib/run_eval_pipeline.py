@@ -41,18 +41,33 @@ def run_evaluation_pipeline(conversation_id: int, k: int=5):
         },
         "evaluation": {
             "relevance": resp_eval["evaluation"]["relevance"],
-            "completenss": resp_eval["completeness"]["completeness"],
+            "completenss": resp_eval["evaluation"]["completeness"],
             "hallucination": h_score
         }
     }
+    
     RESULTS_DIR_PATH.mkdir(parents=True, exist_ok=True)
     eval_results_path = RESULTS_DIR_PATH / f"eval_conversation_{conversation_id}_result.json"
+    # with open(eval_results_path, "w") as f:
+    #     json.dump(result, f, indent=2)
+    safe_result = make_json_safe(result)
+
     with open(eval_results_path, "w") as f:
-        json.dump(result, f, indent=2)
+        json.dump(safe_result, f, indent=2)
+
     
     print(f"- Results saved to '{eval_results_path.name}'")
     return result
 
+def make_json_safe(obj):
+    if isinstance(obj, dict):
+        return {k: make_json_safe(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [make_json_safe(v) for v in obj]
+    elif hasattr(obj, "item"):  # numpy / torch scalar
+        return obj.item()
+    else:
+        return obj
 
 
 
@@ -75,9 +90,9 @@ def _print_generated_answer_and_metrics(answer: dict):
 def _print_rel_comp_scores(scores: dict):
     print(f"Evaluated LLM response generated for given user query:")
     print(f"- Relevance score: {scores['evaluation']['relevance']['score']}")
-    print(f"  - {scores['evaluation']['relevance']['note']}\n")
+    print(f"  - {scores['evaluation']['relevance']['notes']}\n")
     print(f"- Completeness score: {scores['evaluation']['completeness']['score']}")
-    print(f"  - {scores['evaluation']['completeness']['note']}\n")
+    print(f"  - {scores['evaluation']['completeness']['notes']}\n")
 
 def _print_hallucination_score(score: dict):
     print(f"Evaluated hallucination score for generated answer:")
