@@ -115,7 +115,7 @@ No external APIs are required.
 ### 1. Clone the repository
 
 ```bash
-git clone <git@github.com:rahullpanditaa/llm-eval.git>
+git clone <https://github.com/rahullpanditaa/llm-eval.git>
 cd llm-eval
 ```
 
