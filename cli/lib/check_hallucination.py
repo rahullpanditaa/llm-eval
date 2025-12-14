@@ -12,7 +12,7 @@ class CheckHallucination:
     def compute_hallucination_score(self):
         if not self.sentences:
             return {
-                "score": 0.0,
+                "hallucination_score": 0.0,
                 "note": "No content generated to assess hallucination."
             }
         
